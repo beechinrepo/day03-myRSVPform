@@ -1,1 +1,14 @@
-<app-form></app-form>
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between">
+    <div fxlayout="row" fxLayoutAlign="start center" fxLayoutGap="1vw">
+        <img src="assets/rsvp.jpeg" class="mylogo">
+        <span>High School Reunion</span> 
+        <button mat-icon-button [disabled]="!shareable" (click)="sharethejoy()">
+        <mat-icon>share</mat-icon>
+        </button>
+        <!-- Initally false, when click activate sharing -->
+        
+    </div>
+</mat-toolbar>
+<app-rsvp (onNewRSVP)="addToList($event)"></app-rsvp> 
+<!--Generate entire form values with each submit-->
+<!--when rsvp component changes, perform function in app module-->
