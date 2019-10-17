@@ -1,9 +1,9 @@
-export interface model {
-    Name: string;
-    GuestNo: string;
-    Phone: string;
-    Date: number;
-    Vegetarian: boolean;
-    Allergies: string[];
-    Comments: string;
+export interface RSVP {
+    name: string;
+    phone: string;
+    attendingDay: number;
+    vegetarian: boolean;   //Yes/No button
+    guest?: number;        //?:Optional
+    allergies?: string[];  //array of choices
+    comments: string;
   };
