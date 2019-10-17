@@ -1,43 +1,96 @@
-<h1>High School Reunion Registration Form</h1>
+<form #reunionForm="ngForm" (ngSubmit)="processForm(reunionForm)" fxLayout="column row" fxLayoutGap="3vh">
+  
+  <mat-form-field appearance="outline">
+    <mat-label>Name: </mat-label>
+    <input type="text" id="name" name="name" ngModel matInput required #nameField="ngModel"
+    placeholder="Please enter your name">
+  </mat-form-field><br>
+  <!-- <label for="name">Name:</label>
+    <div id="name">
+      <input type="text" id="firstname" name="firstname" ngModel required>
+      <input type="text" id="lastname" name="lastname" ngModel required>
+    </div> <br> -->
 
-<form #reunionForm="ngForm" (ngSubmit)="processForm(reunionForm)">
+  <mat-form-field>
+    <input type="tel" id="phone" name="phone" ngModel matInput required
+      placeholder="Please enter your phone number" #phoneField>
+      <mat-icon matSuffix>phone</mat-icon>
+  </mat-form-field><br>
+  <!-- <label for="phone">Contact:</label>
+  <input type="tel" id="phone" name="phone" ngModel required> <br> -->
+  <!-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
 
-<label for="name">Name:</label>
-  <div id="name">
-    <input type="text" id="firstname" name="firstname" ngModel required>
-    <input type="text" id="lastname" name="lastname" ngModel required>
+  <mat-label>Email:</mat-label>
+  <mat-form-field> 
+    <input type="email" name="email" placeholder="Your email" matInput #emailField="ngModel"required email ngModel> 
+    <mat-hint *ngIf= "emailField.invalid">Please enter a valid email</mat-hint> 
+    <mat-error *ngIf="emailField.hasError('email')"> Invalid email </mat-error> 
+  </mat-form-field><br>
+  <!-- <label for="email">Email:</label>
+  <input type="email" id="email" name="email" ngModel required> <br> -->
+
+  <mat-label>Select Date:</mat-label>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
+    id="attendingDay" name="attendingDay" ngModel required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker touchui="true"></mat-datepicker>
+  </mat-form-field><br>
+  <!-- <label for="attendingDay">Select Date:</label>
+  <input type="date" id="attendingDay" name="attendingDay" ngModel> <br> -->
+
+  <mat-label>No. of Guests:</mat-label>
+  <mat-slider #guests min="0" max="3" step="1" tickInterval="1" 
+  value="0" thumbLabel ngModel ></mat-slider><br>
+  <!-- <label for="guest">No. of Guests:</label>
+  <input type="number" id="guest" name="guest" min="0" max="3" ngModel required> <br> -->
+
+  <section fxLayout fxLayoutGap="1vw" fxLayoutAlign="start center">
+    <mat-label>Vegetarian</mat-label>
+    <mat-radio-group name="vegetarian" fxLayout="column" fxLayoutGap="3vw" ngModel>
+      <mat-radio-button value="yes">Yes</mat-radio-button>
+      <mat-radio-button value="no">No</mat-radio-button>
+    </mat-radio-group>
+</section>
+  <!-- <label for="attending">Attending:</label>
+  <input type="radio" id="attending" name="attending" value="yes" ngModel > YES
+  <input type="radio" id="attending" name="attending" value="no" ngModel r> NO <br> -->
+  
+ 
+  <mat-label>Allergies: </mat-label><br>
+  <div fxLayout="row column" fxLayoutAlign="start center" fxLayoutGap="20vw">
+  <mat-checkbox name="allergies-peanut" ngModel>Peanut</mat-checkbox>
+  <mat-checkbox name="allergies-gluten" ngModel>Gluten</mat-checkbox>
   </div>
+  <div fxLayout="row column" fxLayoutAlign="start center" fxLayoutGap="20vw">
+  <mat-checkbox name="allergies-diary" ngModel>Diary</mat-checkbox>
+  <mat-checkbox name="allergies-shellfish" ngModel>Shellfish</mat-checkbox>
+  </div>
+   <!--id:Unique id for css to js-->
+  <!-- <label for="allergies">Allergies:</label>
+  <input type="checkbox" id="allergies" name="allergies-seafood" value="seafood" ngModel> SEAFOOD
+  <input type="checkbox" id="allergies" name="allergies-peanut" value="peanut" ngModel> PEANUT
+  <input type="checkbox" id="allergies" name="allergies-kids" value="kids" ngModel> KIDS <br>
+   -->
 
-<label for="guest">No. of Guests:</label>
-<input type="number" id="guest" name="guest" min="0" max="3" ngModel required>
+  <mat-form-field>
+    <textarea name="comments" id="comments" cols="30" rows="10" ngModel 
+    matInput placeholder="Leave a comment"></textarea>
+  </mat-form-field>
+  <!-- <label for="comments">Comments:</label><br>
+  <textarea name="comments" id="comments" cols="30" rows="10" ngModel></textarea>
+  <br> -->
 
-<label for="phone">Contact:</label>
-<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" ngModel required>
-
-<label for="email">Email:</label>
-<input type="email" id="email" name="email" ngModel required> <br>
-
-<label for="arrival">Select Date:</label>
-<input type="date" id="arrival" name="arrival" ngModel> <br>
-
-<label for="attending">Which events will you be attending? </label>
-<input type="checkbox" id="cookout" name="cookout" value="cookout" ngModel> Friday night cookout
-<input type="checkbox" id="breakfast" name="breakfast" value="breakfast" ngModel> Saturday breakfast
-<input type="checkbox" id="lunch" name="lunch" value="lunch" ngModel> Saturday lunch <br>
-<input type="checkbox" id="dinner" name="dinner" value="dinner" ngModel> Saturday formal dinner <br>
-
-<label for="preorder">Would you like to pre-order a reunion DVD ($19.95)? </label>
-<input type="radio" id="preorder" name="preorder" value="yes" ngModel required> Yes
-<input type="radio" id="preorder" name="preorder" value="no" ngModel required> No <br>
-
-<label for="comments">Comments or Questions </label>
-<textarea name="comments" id="comments" cols="30" rows="10" ngModel></textarea>
-<br>
-
-<button type="submit" [disabled]="reunionForm.invalid">
-  RSVP!
-</button>
-
+  <div fxLayout="row column" fxLayoutAlign="space-around center">
+    <button mat-raised-button type="reset" color="warn">
+      <mat-icon>clear</mat-icon>
+      <!-- Clear -->
+    </button>
+    <button mat-raised-button type="submit" [disabled]="reunionForm.invalid" color="primary">
+      <mat-icon>reply</mat-icon>
+      <!-- Reply -->
+    </button>
+  </div>
+  <!-- <button type="reset">Clear</button>
+  <button type="submit" [disabled]="reunionForm.invalid">Reply</button> -->
 </form>
-
-
